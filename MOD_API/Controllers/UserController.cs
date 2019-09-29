@@ -28,5 +28,24 @@ namespace MOD_API.Controllers
             var result = userLogic.GetUserById(id);
             return Ok(result);
         }
+
+        [Route ("api/blockuser/{id}")]
+        [HttpGet]
+        public IHttpActionResult BlockUser(int id)
+        {
+            userLogic.BlockUser(id);
+            return Ok("User Blocked");
+
+        }
+
+        [Route("api/unblockuser/{id}")]
+        [HttpGet]
+        public IHttpActionResult UnblockUser(int id)
+        {
+            userLogic.UnBlockUser(id);
+            return Ok("User Unblocked");
+        }
+
+
     }
 }

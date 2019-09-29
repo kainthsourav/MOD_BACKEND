@@ -66,11 +66,25 @@ namespace MOD_BAL
             data.SaveChanges();
         }
 
-        public void DeleteUser(int id)
+        public void BlockUser(int id)
         {
             UserDtl user = data.UserDtls.Find(id);
-            data.UserDtls.Remove(user);
+            user.active = false;
+            data.Entry(user).State = EntityState.Modified;
+            data.Configuration.ValidateOnSaveEnabled = false;
+           //ata.UserDtls.Remove(user);
             data.SaveChanges();
+            data.Configuration.ValidateOnSaveEnabled = true;
+        }
+
+        public void UnBlockUser(int id)
+        {
+            UserDtl user = data.UserDtls.Find(id);
+            user.active = true;
+            data.Entry(user).State = EntityState.Modified;
+            data.Configuration.ValidateOnSaveEnabled = false;
+            data.SaveChanges();
+            data.Configuration.ValidateOnSaveEnabled = true;
         }
 
         public void UpdateUser(UserDtl userDtl)
