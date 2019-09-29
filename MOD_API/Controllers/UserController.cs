@@ -12,12 +12,20 @@ namespace MOD_API.Controllers
     public class UserController : ApiController
     {
         MOD_BAL.UserLogic userLogic = new MOD_BAL.UserLogic();
-
-        [Route("api/getuser")]
+        
+       [Route("api/getuser")]
         [HttpGet]
         public IHttpActionResult GetAllUser()
         {
             var result = userLogic.GetAllUsers();
+            return Ok(result);
+        }
+
+        [Route("api/getuserbyid/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetUserById(int id)
+        {
+            var result = userLogic.GetUserById(id);
             return Ok(result);
         }
     }
