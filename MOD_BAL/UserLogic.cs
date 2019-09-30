@@ -94,5 +94,14 @@ namespace MOD_BAL
             data.SaveChanges();
             data.Configuration.ValidateOnSaveEnabled = true;
         }
+
+        //Sigin in 
+        public UserDtl SignIn(UserDtl loginDtl)
+        {
+           UserDtl Vaildlogin= data.UserDtls.FirstOrDefault(x => x.email == loginDtl.email);
+
+            return Vaildlogin;
+
+        }
     }
 }

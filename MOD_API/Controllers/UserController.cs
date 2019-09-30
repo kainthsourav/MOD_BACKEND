@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Web.Http;
 using MOD_BAL;
 using MOD_DATA;
-
 namespace MOD_API.Controllers
 {
     public class UserController : ApiController
@@ -45,6 +44,15 @@ namespace MOD_API.Controllers
             userLogic.UnBlockUser(id);
             return Ok("User Unblocked");
         }
+
+        [Route ("api/login")]
+        [HttpGet]
+        public IHttpActionResult Signin(UserDtl userinfo)
+        {
+            var result=userLogic.SignIn(userinfo);
+            return Ok(result);
+        }
+
 
 
     }
