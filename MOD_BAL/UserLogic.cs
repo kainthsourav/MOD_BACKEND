@@ -10,7 +10,7 @@ namespace MOD_BAL
 {
    public class UserLogic
     {
-        public MOD_DBEntities data = new MOD_DBEntities();
+        public MOD_DBEntities1 data = new MOD_DBEntities1();
         
         public IList<UserDtl> GetAllUsers()
         {
@@ -38,14 +38,16 @@ namespace MOD_BAL
                     linkdinUrl = userDtl.linkdinUrl,
                     yearOfExperience = userDtl.yearOfExperience,
                     confirmedSignUp=userDtl.confirmedSignUp,
-                    active=userDtl.active
+                    active=userDtl.active,
+                    role = userDtl.role
                 };
                 data.UserDtls.Add(newTrainer);
-               
+                data.SaveChanges();
+
             }
 
             //Adding User
-            if(userDtl.role==3)
+            else if(userDtl.role==3)
             {
                 var newUser = new UserDtl()
                 {
@@ -54,16 +56,19 @@ namespace MOD_BAL
                     firstName = userDtl.firstName,
                     lastName = userDtl.lastName,
                     contactNumber = userDtl.contactNumber,
-                    yearOfExperience = userDtl.yearOfExperience,
-                    linkdinUrl = userDtl.linkdinUrl,
+                    email=userDtl.email,
+                    //yearOfExperience = userDtl.yearOfExperience,
+                    //linkdinUrl = userDtl.linkdinUrl,
                     confirmedSignUp = userDtl.confirmedSignUp,
-                    active = userDtl.active
+                    active = userDtl.active,
+                    role = userDtl.role
                 };
                 data.UserDtls.Add(newUser);
+                data.SaveChanges();
             }
 
             //save data to database
-            data.SaveChanges();
+           
         }
 
         public void BlockUser(int id)
@@ -98,7 +103,7 @@ namespace MOD_BAL
         //Sigin in 
         public UserDtl SignIn(UserDtl loginDtl)
         {
-           UserDtl Vaildlogin= data.UserDtls.FirstOrDefault(x => x.email == loginDtl.email);
+            UserDtl Vaildlogin = data.UserDtls.FirstOrDefault(x => x.email == loginDtl.email && x.password == loginDtl.password);
 
             return Vaildlogin;
 

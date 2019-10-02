@@ -46,14 +46,19 @@ namespace MOD_API.Controllers
         }
 
         [Route ("api/login")]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult Signin(UserDtl userinfo)
         {
-            var result=userLogic.SignIn(userinfo);
+            UserDtl result=userLogic.SignIn(userinfo);
             return Ok(result);
         }
 
-
-
+        [Route ("api/register")]
+        [HttpPost]
+        public IHttpActionResult UserRegister(UserDtl User)
+        {
+            userLogic.Register(User);
+            return Ok("User Added");
+        }
     }
 }
