@@ -55,7 +55,7 @@ namespace MOD_API.Controllers
 
         [Route ("api/register")]
         [HttpPost]
-        public IHttpActionResult UserRegister(UserDtl User)
+        public IHttpActionResult Register(UserDtl User)
         {
             userLogic.Register(User);
             return Ok("User Added");

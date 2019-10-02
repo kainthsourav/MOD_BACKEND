@@ -37,7 +37,7 @@ namespace MOD_BAL
                     contactNumber = userDtl.contactNumber,
                     linkdinUrl = userDtl.linkdinUrl,
                     yearOfExperience = userDtl.yearOfExperience,
-                    confirmedSignUp=userDtl.confirmedSignUp,
+                    //confirmedSignUp=userDtl.confirmedSignUp,
                     active=userDtl.active,
                     role = userDtl.role
                 };
