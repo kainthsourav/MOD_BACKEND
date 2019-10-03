@@ -10,7 +10,7 @@ namespace MOD_BAL
 {
    public class UserLogic
     {
-        public MOD_DBEntities1 data = new MOD_DBEntities1();
+        public MOD_DBEntities3 data = new MOD_DBEntities3();
         
         public IList<UserDtl> GetAllUsers()
         {
@@ -107,6 +107,34 @@ namespace MOD_BAL
 
             return Vaildlogin;
 
+        }
+
+
+        //SkillDtls Logic
+        public IList<SkillDtl> GetAllSkills()
+        {
+            return data.SkillDtls.ToList();
+        }
+
+        
+        public void AddNewSkill(SkillDtl skillDtl)
+        {
+            data.SkillDtls.Add(skillDtl);
+            data.SaveChanges();
+        }
+
+        public void DeleteSkill(int id)
+        {
+            data.SkillDtls.Remove(data.SkillDtls.Find(id));
+            data.SaveChanges();
+        }
+
+        public void EditSkill(SkillDtl skillDtl)
+        {
+            data.Entry(skillDtl).State = EntityState.Modified;
+            data.Configuration.ValidateOnSaveEnabled = false;
+            data.SaveChanges();
+            data.Configuration.ValidateOnSaveEnabled = true;
         }
     }
 }

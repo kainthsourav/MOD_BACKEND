@@ -13,10 +13,10 @@ namespace MOD_DATA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MOD_DBEntities1 : DbContext
+    public partial class MOD_DBEntities3 : DbContext
     {
-        public MOD_DBEntities1()
-            : base("name=MOD_DBEntities1")
+        public MOD_DBEntities3()
+            : base("name=MOD_DBEntities3")
         {
         }
     

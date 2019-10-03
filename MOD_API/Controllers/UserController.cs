@@ -11,6 +11,7 @@ namespace MOD_API.Controllers
     public class UserController : ApiController
     {
         MOD_BAL.UserLogic userLogic = new MOD_BAL.UserLogic();
+      
         
        [Route("api/getuser")]
         [HttpGet]
@@ -60,5 +61,35 @@ namespace MOD_API.Controllers
             userLogic.Register(User);
             return Ok("User Added");
         }
+
+        //Skill Logic
+
+      [Route ("api/getskills")]
+      [HttpGet]
+      public IHttpActionResult GetSkills()
+        {
+            var result= userLogic.GetAllSkills();
+            return Ok(result);
+        }
+
+
+       [Route("api/addskill")]
+       [HttpPost]
+        public IHttpActionResult AddSkill(SkillDtl skillDtl)
+        {
+            userLogic.AddNewSkill(skillDtl);
+            return Ok("Added");
+        }
+
+        [Route ("api/delteteskill/{id}")]
+
+        [HttpGet]
+        public IHttpActionResult DeleteSkill(int id)
+        {
+            userLogic.DeleteSkill(id);
+            return Ok("Deleted");
+        }
+
+
     }
 }
