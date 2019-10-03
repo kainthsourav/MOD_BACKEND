@@ -27,6 +27,7 @@
           <Property Name="name" Type="varchar" MaxLength="50" />
           <Property Name="toc" Type="varchar" MaxLength="50" />
           <Property Name="prerequisites" Type="nchar" MaxLength="10" />
+          <Property Name="timings" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TrainingDtls">
           <Key>
@@ -122,6 +123,7 @@
           <Property Name="prerequisites" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="TrainingDtl" Relationship="Self.FK_TrainingDtls_SkillDtls" FromRole="SkillDtls" ToRole="TrainingDtls" />
           <NavigationProperty Name="TrainingDtls" Relationship="MOD_DBModel.FK_TrainingDtls_SkillDtls1" FromRole="SkillDtl" ToRole="TrainingDtl" />
+          <Property Name="timings" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TrainingDtl">
           <Key>
@@ -231,6 +233,7 @@
           <EntitySetMapping Name="SkillDtls">
             <EntityTypeMapping TypeName="MOD_DBModel.SkillDtl">
               <MappingFragment StoreEntitySet="SkillDtls">
+                <ScalarProperty Name="timings" ColumnName="timings" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="toc" ColumnName="toc" />
