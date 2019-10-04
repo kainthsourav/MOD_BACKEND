@@ -10,8 +10,9 @@ namespace MOD_BAL
 {
    public class UserLogic
     {
-        public MOD_DBEntities4 data = new MOD_DBEntities4();
-        
+
+        public MOD_DBEntities data = new MOD_DBEntities();
+
         public IList<UserDtl> GetAllUsers()
         {
             return data.UserDtls.ToList();
