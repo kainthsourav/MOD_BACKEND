@@ -34,6 +34,5 @@ namespace MOD_DATA
         public Nullable<double> fees { get; set; }
     
         public virtual SkillDtl SkillDtl { get; set; }
-        public virtual SkillDtl SkillDtl1 { get; set; }
     }
 }

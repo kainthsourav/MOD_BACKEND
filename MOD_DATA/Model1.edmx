@@ -24,10 +24,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="50" />
-          <Property Name="toc" Type="varchar" MaxLength="50" />
-          <Property Name="prerequisites" Type="nchar" MaxLength="10" />
-          <Property Name="timings" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="200" />
+          <Property Name="toc" Type="varchar" MaxLength="200" />
+          <Property Name="prerequisites" Type="varchar" MaxLength="100" />
+          <Property Name="timings" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="TrainingDtls">
           <Key>
@@ -60,8 +60,8 @@
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="firstName" Type="char" MaxLength="50" Nullable="false" />
-          <Property Name="lastName" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="contactNumber" Type="numeric" Precision="10" Scale="0" Nullable="false" />
           <Property Name="regCode" Type="varchar" MaxLength="50" />
           <Property Name="role" Type="int" Nullable="false" />
@@ -72,6 +72,8 @@
           <Property Name="resetPasswordDate" Type="datetime" />
           <Property Name="resetPassword" Type="bit" />
           <Property Name="pictureUrl" Type="varchar" MaxLength="50" />
+          <Property Name="TrainerTimings" Type="varchar" MaxLength="50" />
+          <Property Name="TrainerTechnology" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_TrainingDtls_SkillDtls1">
           <End Role="SkillDtls" Type="Self.SkillDtls" Multiplicity="1" />
@@ -117,13 +119,12 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="toc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="prerequisites" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="TrainingDtl" Relationship="Self.FK_TrainingDtls_SkillDtls" FromRole="SkillDtls" ToRole="TrainingDtls" />
-          <NavigationProperty Name="TrainingDtls" Relationship="MOD_DBModel.FK_TrainingDtls_SkillDtls1" FromRole="SkillDtl" ToRole="TrainingDtl" />
-          <Property Name="timings" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="toc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="prerequisites" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="timings" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TrainingDtls" Relationship="Self.FK_TrainingDtls_SkillDtls1" FromRole="SkillDtls" ToRole="TrainingDtls" />
         </EntityType>
         <EntityType Name="TrainingDtl">
           <Key>
@@ -147,8 +148,7 @@
           <Property Name="skillId" Type="Int32" Nullable="false" />
           <Property Name="skillname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fees" Type="Double" />
-          <NavigationProperty Name="SkillDtl" Relationship="Self.FK_TrainingDtls_SkillDtls" FromRole="TrainingDtls" ToRole="SkillDtls" />
-          <NavigationProperty Name="SkillDtl1" Relationship="MOD_DBModel.FK_TrainingDtls_SkillDtls1" FromRole="TrainingDtl" ToRole="SkillDtl" />
+          <NavigationProperty Name="SkillDtl" Relationship="Self.FK_TrainingDtls_SkillDtls1" FromRole="TrainingDtls" ToRole="SkillDtls" />
         </EntityType>
         <EntityType Name="UserDtl">
           <Key>
@@ -158,8 +158,8 @@
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="contactNumber" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
           <Property Name="regCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="role" Type="Int32" Nullable="false" />
@@ -170,51 +170,37 @@
           <Property Name="resetPasswordDate" Type="DateTime" Precision="3" />
           <Property Name="resetPassword" Type="Boolean" />
           <Property Name="pictureUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TrainerTimings" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TrainerTechnology" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK_TrainingDtls_SkillDtls">
+        <Association Name="FK_TrainingDtls_SkillDtls1">
           <End Role="SkillDtls" Type="Self.SkillDtl" Multiplicity="1" />
-          <End Role="TrainingDtls" Type="Self.TrainingDtl" Multiplicity="0..1" />
+          <End Role="TrainingDtls" Type="Self.TrainingDtl" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SkillDtls">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="TrainingDtls">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="MOD_DBEntities3" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="PaymentDtls" EntityType="Self.PaymentDtl" />
-          <EntitySet Name="SkillDtls" EntityType="Self.SkillDtl" />
-          <EntitySet Name="TrainingDtls" EntityType="Self.TrainingDtl" />
-          <EntitySet Name="UserDtls" EntityType="Self.UserDtl" />
-          <AssociationSet Name="FK_TrainingDtls_SkillDtls" Association="Self.FK_TrainingDtls_SkillDtls">
-            <End Role="SkillDtls" EntitySet="SkillDtls" />
-            <End Role="TrainingDtls" EntitySet="TrainingDtls" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrainingDtls_SkillDtls1" Association="MOD_DBModel.FK_TrainingDtls_SkillDtls1">
-            <End Role="SkillDtl" EntitySet="SkillDtls" />
-            <End Role="TrainingDtl" EntitySet="TrainingDtls" />
-          </AssociationSet>
-        </EntityContainer>
-        <Association Name="FK_TrainingDtls_SkillDtls1">
-          <End Type="MOD_DBModel.SkillDtl" Role="SkillDtl" Multiplicity="1" />
-          <End Type="MOD_DBModel.TrainingDtl" Role="TrainingDtl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SkillDtl">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TrainingDtl">
               <PropertyRef Name="skillId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="MOD_DBEntities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PaymentDtls" EntityType="Self.PaymentDtl" />
+          <EntitySet Name="SkillDtls" EntityType="Self.SkillDtl" />
+          <EntitySet Name="TrainingDtls" EntityType="Self.TrainingDtl" />
+          <EntitySet Name="UserDtls" EntityType="Self.UserDtl" />
+          <AssociationSet Name="FK_TrainingDtls_SkillDtls1" Association="Self.FK_TrainingDtls_SkillDtls1">
+            <End Role="SkillDtls" EntitySet="SkillDtls" />
+            <End Role="TrainingDtls" EntitySet="TrainingDtls" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MOD_DBModelStoreContainer" CdmEntityContainer="MOD_DBEntities3">
+        <EntityContainerMapping StorageEntityContainer="MOD_DBModelStoreContainer" CdmEntityContainer="MOD_DBEntities4">
           <EntitySetMapping Name="PaymentDtls">
             <EntityTypeMapping TypeName="MOD_DBModel.PaymentDtl">
               <MappingFragment StoreEntitySet="PaymentDtls">
@@ -233,11 +219,11 @@
           <EntitySetMapping Name="SkillDtls">
             <EntityTypeMapping TypeName="MOD_DBModel.SkillDtl">
               <MappingFragment StoreEntitySet="SkillDtls">
-                <ScalarProperty Name="timings" ColumnName="timings" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="toc" ColumnName="toc" />
                 <ScalarProperty Name="prerequisites" ColumnName="prerequisites" />
+                <ScalarProperty Name="timings" ColumnName="timings" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -268,6 +254,8 @@
           <EntitySetMapping Name="UserDtls">
             <EntityTypeMapping TypeName="MOD_DBModel.UserDtl">
               <MappingFragment StoreEntitySet="UserDtls">
+                <ScalarProperty Name="TrainerTechnology" ColumnName="TrainerTechnology" />
+                <ScalarProperty Name="TrainerTimings" ColumnName="TrainerTimings" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="userName" ColumnName="userName" />

@@ -10,7 +10,7 @@ namespace MOD_BAL
 {
    public class UserLogic
     {
-        public MOD_DBEntities3 data = new MOD_DBEntities3();
+        public MOD_DBEntities4 data = new MOD_DBEntities4();
         
         public IList<UserDtl> GetAllUsers()
         {
@@ -37,6 +37,8 @@ namespace MOD_BAL
                     contactNumber = userDtl.contactNumber,
                     linkdinUrl = userDtl.linkdinUrl,
                     yearOfExperience = userDtl.yearOfExperience,
+                    TrainerTimings=userDtl.TrainerTimings,
+                    TrainerTechnology=userDtl.TrainerTechnology,
                     //confirmedSignUp=userDtl.confirmedSignUp,
                     active=userDtl.active,
                     role = userDtl.role
@@ -51,7 +53,7 @@ namespace MOD_BAL
             {
                 var newUser = new UserDtl()
                 {
-                    userName = userDtl.userName,
+                    userName = userDtl.email,
                     password = userDtl.password,
                     firstName = userDtl.firstName,
                     lastName = userDtl.lastName,
@@ -116,7 +118,10 @@ namespace MOD_BAL
             return data.SkillDtls.ToList();
         }
 
-        
+        public SkillDtl GetSkillById(int id)
+        {
+            return data.SkillDtls.Find(id);
+        }
         public void AddNewSkill(SkillDtl skillDtl)
         {
             data.SkillDtls.Add(skillDtl);

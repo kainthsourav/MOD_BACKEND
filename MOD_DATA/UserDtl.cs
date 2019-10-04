@@ -30,5 +30,7 @@ namespace MOD_DATA
         public Nullable<System.DateTime> resetPasswordDate { get; set; }
         public Nullable<bool> resetPassword { get; set; }
         public string pictureUrl { get; set; }
+        public string TrainerTimings { get; set; }
+        public string TrainerTechnology { get; set; }
     }
 }

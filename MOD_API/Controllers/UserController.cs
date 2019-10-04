@@ -90,6 +90,21 @@ namespace MOD_API.Controllers
             return Ok("Deleted");
         }
 
+        [Route("api/getskillbyid/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetSkillById(int id)
+        {
+            var result= userLogic.GetSkillById(id);
+            if(result !=null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return Ok("Empty");
+            }
+        }
+
 
     }
 }
