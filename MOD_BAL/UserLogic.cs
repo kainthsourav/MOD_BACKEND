@@ -38,7 +38,7 @@ namespace MOD_BAL
                     contactNumber = userDtl.contactNumber,
                     linkdinUrl = userDtl.linkdinUrl,
                     yearOfExperience = userDtl.yearOfExperience,
-                    TrainerTimings=userDtl.TrainerTimings,
+                   // TrainerTimings=userDtl.TrainerTimings,
                     TrainerTechnology=userDtl.TrainerTechnology,
                     //confirmedSignUp=userDtl.confirmedSignUp,
                     active=userDtl.active,
@@ -143,10 +143,11 @@ namespace MOD_BAL
             data.Configuration.ValidateOnSaveEnabled = true;
         }
 
-        public IList<UserDtl> SearchTrainings(SkillDtl skillDtl)
+        public List<UserDtl> Search(string Data)
         {
-         return data.UserDtls.Where(x => x.TrainerTechnology == skillDtl.id.ToString() && x.TrainerTimings == skillDtl.timings).ToList();
-           
+            List<UserDtl> mentors;
+            mentors =data.UserDtls.Where(x => x.TrainerTechnology == Data).ToList();
+            return mentors;
         }
     }
 }
