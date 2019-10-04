@@ -141,5 +141,11 @@ namespace MOD_BAL
             data.SaveChanges();
             data.Configuration.ValidateOnSaveEnabled = true;
         }
+
+        public IList<UserDtl> SearchTrainings(SkillDtl skillDtl)
+        {
+         return data.UserDtls.Where(x => x.TrainerTechnology == skillDtl.id.ToString() && x.TrainerTimings == skillDtl.timings).ToList();
+           
+        }
     }
 }

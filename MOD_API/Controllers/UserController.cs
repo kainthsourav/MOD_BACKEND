@@ -106,5 +106,21 @@ namespace MOD_API.Controllers
         }
 
 
+       [Route("api/searchtrainings")]
+       [HttpGet]
+       public IHttpActionResult SearchTrainings(SkillDtl skillDtl)
+        {
+           var result= userLogic.SearchTrainings(skillDtl);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return Ok("Empty");
+            }
+        }
+
+
     }
 }
