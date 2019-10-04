@@ -11,7 +11,7 @@ namespace MOD_BAL
    public class UserLogic
     {
 
-        public MOD_DBEntities data = new MOD_DBEntities();
+        public MOD_DBEntities2 data = new MOD_DBEntities2();
 
         public IList<UserDtl> GetAllUsers()
         {
@@ -119,6 +119,11 @@ namespace MOD_BAL
             return data.SkillDtls.ToList();
         }
 
+        public List<SkillDtl> GetSkillsPrice( string id)
+        {
+            return data.SkillDtls.Where(x => x.name == id).ToList();
+        }
+
         public SkillDtl GetSkillById(int id)
         {
             return data.SkillDtls.Find(id);
@@ -148,6 +153,13 @@ namespace MOD_BAL
             List<UserDtl> mentors;
             mentors =data.UserDtls.Where(x => x.TrainerTechnology == Data).ToList();
             return mentors;
+        }
+
+        //Save to Trainer Table
+        public void addTrainingDtls(TrainingDtl trainingDtl)
+        {
+            data.TrainingDtls.Add(trainingDtl);
+            data.SaveChanges();
         }
     }
 }

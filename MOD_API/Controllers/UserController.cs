@@ -72,6 +72,14 @@ namespace MOD_API.Controllers
             return Ok(result);
         }
 
+        [Route("api/getskillprice/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetSkillPrice(string id)
+        {
+            var result = userLogic.GetSkillsPrice(id);
+            return Ok(result);
+        }
+
 
        [Route("api/addskill")]
        [HttpPost]
@@ -114,6 +122,16 @@ namespace MOD_API.Controllers
             return Ok(result);
           
         }
+
+        [Route("api/addTraining")]
+        [HttpPost]
+
+        public IHttpActionResult TrainingData(TrainingDtl trainingDtl)
+        {
+             userLogic.addTrainingDtls(trainingDtl);
+            return Ok("Sent");
+        }
+
 
 
     }

@@ -14,19 +14,11 @@ namespace MOD_DATA
     
     public partial class SkillDtl
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SkillDtl()
-        {
-            this.TrainingDtls = new HashSet<TrainingDtl>();
-        }
-    
         public int id { get; set; }
         public string name { get; set; }
         public string toc { get; set; }
         public string prerequisites { get; set; }
+        public string fees { get; set; }
         public string timings { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrainingDtl> TrainingDtls { get; set; }
     }
 }
