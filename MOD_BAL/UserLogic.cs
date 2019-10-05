@@ -11,7 +11,7 @@ namespace MOD_BAL
    public class UserLogic
     {
 
-        public MOD_DBEntities2 data = new MOD_DBEntities2();
+        public MOD_DBEntities data = new MOD_DBEntities();
 
         public IList<UserDtl> GetAllUsers()
         {
@@ -124,9 +124,9 @@ namespace MOD_BAL
             return data.SkillDtls.Where(x => x.name == id).ToList();
         }
 
-        public SkillDtl GetSkillById(int id)
+        public IList<SkillDtl> GetSkillById(int id)
         {
-            return data.SkillDtls.Find(id);
+            return data.SkillDtls.Where(x => x.id == id).ToList() ;
         }
         public void AddNewSkill(SkillDtl skillDtl)
         {
@@ -160,6 +160,42 @@ namespace MOD_BAL
         {
             data.TrainingDtls.Add(trainingDtl);
             data.SaveChanges();
+        }
+
+        //get Training Data for showing approval
+        public List<TrainingDtl> GetApproval()
+        {
+            List<TrainingDtl> dtls = data.TrainingDtls.ToList();
+            return dtls;
+        }
+        
+        //Approve and Rejected Training
+         public void Approve(int id)
+        {
+            TrainingDtl user = data.TrainingDtls.Find(id);
+            user.accept = true;
+            user.rejected = false;
+            data.Entry(user).State = EntityState.Modified;
+            data.Configuration.ValidateOnSaveEnabled = false;
+            data.SaveChanges();
+            data.Configuration.ValidateOnSaveEnabled = true;
+        }
+
+        public void Declined(int id)
+        {
+            TrainingDtl user = data.TrainingDtls.Find(id);
+            user.accept = false;
+            user.rejected = true;
+            data.Entry(user).State = EntityState.Modified;
+            data.Configuration.ValidateOnSaveEnabled = false;
+            data.SaveChanges();
+            data.Configuration.ValidateOnSaveEnabled = true;
+        }
+
+        //Get Training Details for Payment
+        public IList<TrainingDtl> TrainingById(int id)
+        {
+            return data.TrainingDtls.Where(x => x.id == id).ToList();
         }
     }
 }

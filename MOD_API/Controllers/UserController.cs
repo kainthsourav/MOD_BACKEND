@@ -64,6 +64,7 @@ namespace MOD_API.Controllers
 
         //Skill Logic
 
+       
       [Route ("api/getskills")]
       [HttpGet]
       public IHttpActionResult GetSkills()
@@ -86,7 +87,7 @@ namespace MOD_API.Controllers
         public IHttpActionResult AddSkill(SkillDtl skillDtl)
         {
             userLogic.AddNewSkill(skillDtl);
-            return Ok("Added");
+            return Ok("Request Sent");
         }
 
         [Route ("api/delteteskill/{id}")]
@@ -130,6 +131,42 @@ namespace MOD_API.Controllers
         {
              userLogic.addTrainingDtls(trainingDtl);
             return Ok("Sent");
+        }
+
+        //Get training Data
+        [Route("api/getapprovals")]
+        [HttpGet]
+        public IHttpActionResult Approvals()
+        {
+           var result= userLogic.GetApproval();
+            return Ok(result);
+        }
+
+        [Route("api/approveTraining/{id}")]
+        [HttpGet]
+
+        public IHttpActionResult approve(int id)
+        {
+            userLogic.Approve(id);
+            return Ok("Training Approved");
+        }
+
+        [Route("api/declinedTraining/{id}")]
+        [HttpGet]
+        public IHttpActionResult declined(int id)
+        {
+            userLogic.Declined(id);
+            return Ok("Training Rejected");
+        }
+
+        //Get trainingById
+        [Route("api/trainingById/{id}")]
+        [HttpGet]
+
+        public IHttpActionResult GetTrainingById(int id)
+        {
+            var result=userLogic.TrainingById(id);
+            return Ok(result);
         }
 
 

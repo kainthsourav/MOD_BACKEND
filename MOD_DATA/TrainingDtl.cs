@@ -31,5 +31,6 @@ namespace MOD_DATA
         public Nullable<int> skillId { get; set; }
         public string skillname { get; set; }
         public Nullable<bool> accept { get; set; }
+        public Nullable<bool> rejected { get; set; }
     }
 }
