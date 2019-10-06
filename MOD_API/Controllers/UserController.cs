@@ -169,7 +169,30 @@ namespace MOD_API.Controllers
             return Ok(result);
         }
 
+        //Payment
+        [Route("api/paymentgate")]
+        [HttpPost]
+        public IHttpActionResult PayTrainingFee(PaymentDtl paymentDtl)
+        {
+            userLogic.addPayment(paymentDtl);
+            return Ok("Fee Paid");
+        }
 
+        [Route("api/allpayments")]
+        [HttpGet]
+        public IHttpActionResult GetPayments()
+        {
+            var result = userLogic.GetAllPayment();
+            return Ok(result);
+        }
+
+        [Route("api/updatepay/{id}")]
+        [HttpGet]
+        public IHttpActionResult updatePay(int id)
+        {
+            userLogic.PayUpdate(id);
+            return Ok("Payment Confirmed");
+        }
 
     }
 }

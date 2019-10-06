@@ -8,10 +8,10 @@ using MOD_DATA;
 
 namespace MOD_BAL
 {
-   public class UserLogic
+    public class UserLogic
     {
 
-        public MOD_DBEntities data = new MOD_DBEntities();
+        public MOD_DBEntities1 data = new MOD_DBEntities1();
 
         public IList<UserDtl> GetAllUsers()
         {
@@ -26,11 +26,11 @@ namespace MOD_BAL
         public void Register(UserDtl userDtl)
         {
             //Adding Trainer
-            if(userDtl.role==2)
+            if (userDtl.role == 2)
             {
                 var newTrainer = new UserDtl()
                 {
-                    userName = userDtl.userName,
+                    userName = userDtl.firstName + " " + userDtl.lastName,
                     password = userDtl.password,
                     email = userDtl.email,
                     firstName = userDtl.firstName,
@@ -38,10 +38,10 @@ namespace MOD_BAL
                     contactNumber = userDtl.contactNumber,
                     linkdinUrl = userDtl.linkdinUrl,
                     yearOfExperience = userDtl.yearOfExperience,
-                   // TrainerTimings=userDtl.TrainerTimings,
-                    TrainerTechnology=userDtl.TrainerTechnology,
+                    // TrainerTimings=userDtl.TrainerTimings,
+                    TrainerTechnology = userDtl.TrainerTechnology,
                     //confirmedSignUp=userDtl.confirmedSignUp,
-                    active=userDtl.active,
+                    active = userDtl.active,
                     role = userDtl.role
                 };
                 data.UserDtls.Add(newTrainer);
@@ -50,16 +50,16 @@ namespace MOD_BAL
             }
 
             //Adding User
-            else if(userDtl.role==3)
+            else if (userDtl.role == 3)
             {
                 var newUser = new UserDtl()
                 {
-                    userName = userDtl.email,
+                    userName = userDtl.firstName + " " + userDtl.lastName,
                     password = userDtl.password,
                     firstName = userDtl.firstName,
                     lastName = userDtl.lastName,
                     contactNumber = userDtl.contactNumber,
-                    email=userDtl.email,
+                    email = userDtl.email,
                     //yearOfExperience = userDtl.yearOfExperience,
                     //linkdinUrl = userDtl.linkdinUrl,
                     confirmedSignUp = userDtl.confirmedSignUp,
@@ -71,7 +71,7 @@ namespace MOD_BAL
             }
 
             //save data to database
-           
+
         }
 
         public void BlockUser(int id)
@@ -80,7 +80,7 @@ namespace MOD_BAL
             user.active = false;
             data.Entry(user).State = EntityState.Modified;
             data.Configuration.ValidateOnSaveEnabled = false;
-           //ata.UserDtls.Remove(user);
+            //ata.UserDtls.Remove(user);
             data.SaveChanges();
             data.Configuration.ValidateOnSaveEnabled = true;
         }
@@ -119,14 +119,14 @@ namespace MOD_BAL
             return data.SkillDtls.ToList();
         }
 
-        public List<SkillDtl> GetSkillsPrice( string id)
+        public List<SkillDtl> GetSkillsPrice(string id)
         {
             return data.SkillDtls.Where(x => x.name == id).ToList();
         }
 
         public IList<SkillDtl> GetSkillById(int id)
         {
-            return data.SkillDtls.Where(x => x.id == id).ToList() ;
+            return data.SkillDtls.Where(x => x.id == id).ToList();
         }
         public void AddNewSkill(SkillDtl skillDtl)
         {
@@ -151,14 +151,29 @@ namespace MOD_BAL
         public List<UserDtl> Search(string Data)
         {
             List<UserDtl> mentors;
-            mentors =data.UserDtls.Where(x => x.TrainerTechnology == Data).ToList();
+            mentors = data.UserDtls.Where(x => x.TrainerTechnology == Data).ToList();
             return mentors;
         }
 
         //Save to Trainer Table
         public void addTrainingDtls(TrainingDtl trainingDtl)
         {
-            data.TrainingDtls.Add(trainingDtl);
+            var newTraining = new TrainingDtl()
+            {
+                startDate = trainingDtl.startDate,
+                endDate = trainingDtl.endDate,
+                timeSlot = trainingDtl.timeSlot,
+                accept = trainingDtl.accept,
+                userId = trainingDtl.userId,
+                userName = trainingDtl.userName,
+                mentorId = trainingDtl.mentorId,
+                skillId = trainingDtl.skillId,
+                skillname = trainingDtl.skillname,
+                rejected = trainingDtl.rejected,
+                mentorName = trainingDtl.mentorName,
+
+            };
+            data.TrainingDtls.Add(newTraining);
             data.SaveChanges();
         }
 
@@ -168,9 +183,9 @@ namespace MOD_BAL
             List<TrainingDtl> dtls = data.TrainingDtls.ToList();
             return dtls;
         }
-        
+
         //Approve and Rejected Training
-         public void Approve(int id)
+        public void Approve(int id)
         {
             TrainingDtl user = data.TrainingDtls.Find(id);
             user.accept = true;
@@ -197,5 +212,44 @@ namespace MOD_BAL
         {
             return data.TrainingDtls.Where(x => x.id == id).ToList();
         }
+
+        //payment
+          public void addPayment(PaymentDtl paymentDtl)
+        {
+            var myPay = new PaymentDtl()
+            {
+                txtType=paymentDtl.txtType,
+                userId=paymentDtl.userId,
+                mentorId=paymentDtl.mentorId,
+                skillId=paymentDtl.skillId,
+                skillName=paymentDtl.skillName,
+                fees=paymentDtl.fees,
+                mentorfees=paymentDtl.mentorfees,
+                commision=paymentDtl.commision,
+                PaymentStatus=paymentDtl.PaymentStatus
+            };
+            data.PaymentDtls.Add(myPay);
+            data.SaveChanges();
+        }
+
+        //get all Payment
+        public IList<PaymentDtl> GetAllPayment()
+        {
+
+           IList<PaymentDtl> dtl= data.PaymentDtls.ToList();
+           return dtl;
+        }
+
+        //update Payment Status
+        public void PayUpdate(int id)
+        {
+            TrainingDtl payStatus = data.TrainingDtls.Find(id);
+            payStatus.PaymentStatus = true;
+            data.Entry(payStatus).State = EntityState.Modified;
+            data.Configuration.ValidateOnSaveEnabled = false;
+            data.SaveChanges();
+            data.Configuration.ValidateOnSaveEnabled = true;
+        }
+
     }
 }

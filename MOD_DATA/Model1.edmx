@@ -9,15 +9,16 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="txtType" Type="varchar" MaxLength="50" />
-          <Property Name="amount" Type="float" />
-          <Property Name="remarks" Type="varchar" MaxLength="50" />
-          <Property Name="mentorId" Type="int" Nullable="false" />
-          <Property Name="mentorName" Type="varchar" MaxLength="50" />
-          <Property Name="trainingId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="mentorId" Type="int" />
+          <Property Name="skillId" Type="int" />
           <Property Name="skillName" Type="varchar" MaxLength="50" />
-          <Property Name="totalAmountToMentor" Type="float" />
+          <Property Name="fees" Type="varchar" MaxLength="50" />
+          <Property Name="mentorfees" Type="varchar" MaxLength="50" />
+          <Property Name="commision" Type="varchar" MaxLength="50" />
+          <Property Name="PaymentStatus" Type="bit" />
         </EntityType>
         <EntityType Name="SkillDtls">
           <Key>
@@ -52,6 +53,7 @@
           <Property Name="skillname" Type="varchar" MaxLength="50" />
           <Property Name="accept" Type="bit" />
           <Property Name="rejected" Type="bit" />
+          <Property Name="PaymentStatus" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserDtls">
           <Key>
@@ -91,15 +93,16 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="txtType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="amount" Type="Double" />
-          <Property Name="remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="mentorId" Type="Int32" Nullable="false" />
-          <Property Name="mentorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="trainingId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="mentorId" Type="Int32" />
+          <Property Name="skillId" Type="Int32" />
           <Property Name="skillName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="totalAmountToMentor" Type="Double" />
+          <Property Name="fees" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mentorfees" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="commision" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentStatus" Type="Boolean" />
         </EntityType>
         <EntityType Name="SkillDtl">
           <Key>
@@ -134,6 +137,7 @@
           <Property Name="skillname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="accept" Type="Boolean" />
           <Property Name="rejected" Type="Boolean" />
+          <Property Name="PaymentStatus" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="UserDtl">
           <Key>
@@ -158,7 +162,7 @@
           <Property Name="TrainerTimings" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TrainerTechnology" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="MOD_DBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MOD_DBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PaymentDtls" EntityType="Self.PaymentDtl" />
           <EntitySet Name="SkillDtls" EntityType="Self.SkillDtl" />
           <EntitySet Name="TrainingDtls" EntityType="Self.TrainingDtl" />
@@ -169,19 +173,20 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MOD_DBModelStoreContainer" CdmEntityContainer="MOD_DBEntities">
+        <EntityContainerMapping StorageEntityContainer="MOD_DBModelStoreContainer" CdmEntityContainer="MOD_DBEntities1">
           <EntitySetMapping Name="PaymentDtls">
             <EntityTypeMapping TypeName="MOD_DBModel.PaymentDtl">
               <MappingFragment StoreEntitySet="PaymentDtls">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="txtType" ColumnName="txtType" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="mentorId" ColumnName="mentorId" />
-                <ScalarProperty Name="mentorName" ColumnName="mentorName" />
-                <ScalarProperty Name="trainingId" ColumnName="trainingId" />
+                <ScalarProperty Name="skillId" ColumnName="skillId" />
                 <ScalarProperty Name="skillName" ColumnName="skillName" />
-                <ScalarProperty Name="totalAmountToMentor" ColumnName="totalAmountToMentor" />
+                <ScalarProperty Name="fees" ColumnName="fees" />
+                <ScalarProperty Name="mentorfees" ColumnName="mentorfees" />
+                <ScalarProperty Name="commision" ColumnName="commision" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -218,6 +223,7 @@
                 <ScalarProperty Name="skillname" ColumnName="skillname" />
                 <ScalarProperty Name="accept" ColumnName="accept" />
                 <ScalarProperty Name="rejected" ColumnName="rejected" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
