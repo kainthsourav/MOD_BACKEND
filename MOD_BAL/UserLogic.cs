@@ -251,5 +251,16 @@ namespace MOD_BAL
             data.Configuration.ValidateOnSaveEnabled = true;
         }
 
+        //Update Training Progress
+        public void UpdateProg(TrainingDtl updateData)
+        {
+            TrainingDtl prog = data.TrainingDtls.Find(updateData.id);
+            prog.progress = updateData.progress;
+            data.Entry(prog).State = EntityState.Modified;
+            data.Configuration.ValidateOnSaveEnabled = false;
+            data.SaveChanges();
+            data.Configuration.ValidateOnSaveEnabled = true;
+        }
+
     }
 }

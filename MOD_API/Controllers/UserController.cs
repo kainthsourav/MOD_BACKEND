@@ -194,5 +194,14 @@ namespace MOD_API.Controllers
             return Ok("Payment Confirmed");
         }
 
+        [Route("api/updateProgress")]
+        [HttpPost]
+        public IHttpActionResult Progress(TrainingDtl proData)
+        {
+            userLogic.UpdateProg(proData);
+            return Ok("Progress Updated");
+
+        }
+
     }
 }
