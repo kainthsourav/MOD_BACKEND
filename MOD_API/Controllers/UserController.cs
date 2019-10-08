@@ -203,5 +203,15 @@ namespace MOD_API.Controllers
 
         }
 
+        //AdminCommision
+        [Route("api/admincommision")]
+        [HttpPost]
+        public IHttpActionResult Commision(PaymentDtl paymentDtl)
+        {
+            userLogic.AdminCommision(paymentDtl);
+            return Ok("Updated");
+        }
+        
+
     }
 }

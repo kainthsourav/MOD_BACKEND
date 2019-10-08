@@ -26,6 +26,7 @@ namespace MOD_BAL
         public void Register(UserDtl userDtl)
         {
             //Adding Trainer
+          
             if (userDtl.role == 2)
             {
                 var newTrainer = new UserDtl()
@@ -257,6 +258,18 @@ namespace MOD_BAL
             TrainingDtl prog = data.TrainingDtls.Find(updateData.id);
             prog.progress = updateData.progress;
             data.Entry(prog).State = EntityState.Modified;
+            data.Configuration.ValidateOnSaveEnabled = false;
+            data.SaveChanges();
+            data.Configuration.ValidateOnSaveEnabled = true;
+        }
+
+        //AdminCommision
+        public void AdminCommision(PaymentDtl commision)
+        {
+            PaymentDtl paymentDtl = data.PaymentDtls.Find(commision.id);
+            paymentDtl.commision = commision.commision;
+            paymentDtl.fees = commision.fees;
+            data.Entry(paymentDtl).State = EntityState.Modified;
             data.Configuration.ValidateOnSaveEnabled = false;
             data.SaveChanges();
             data.Configuration.ValidateOnSaveEnabled = true;
