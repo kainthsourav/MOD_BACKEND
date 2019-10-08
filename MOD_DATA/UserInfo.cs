@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MOD_TEST
+namespace MOD_DATA
 {
-    public class Class1
+   public class UserInfo
     {
+        public string message { get; set; }
+        public UserDtl userInfo { get; set; }
     }
 }
