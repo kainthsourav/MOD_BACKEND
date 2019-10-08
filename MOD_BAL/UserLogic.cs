@@ -275,5 +275,19 @@ namespace MOD_BAL
             data.Configuration.ValidateOnSaveEnabled = true;
         }
 
+        //Updation Trainer Profile
+
+        public void UpdateProfile(UserDtl updateData)
+        {
+            UserDtl userDtl = data.UserDtls.Find(updateData.id);
+            userDtl.firstName = updateData.firstName;
+            userDtl.lastName = updateData.lastName;
+            userDtl.contactNumber = updateData.contactNumber;
+            userDtl.yearOfExperience = updateData.yearOfExperience;
+            data.Entry(userDtl).State = EntityState.Modified;
+            data.Configuration.ValidateOnSaveEnabled = false;
+            data.SaveChanges();
+            data.Configuration.ValidateOnSaveEnabled = true;
+        }
     }
 }

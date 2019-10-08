@@ -211,7 +211,17 @@ namespace MOD_API.Controllers
             userLogic.AdminCommision(paymentDtl);
             return Ok("Updated");
         }
-        
+
+        //Update Trainer Profile
+        [Route("api/updatetrainerprofile")]
+        [HttpPost]
+        public IHttpActionResult UpdateProfile(UserDtl userDtl)
+        {
+            userLogic.UpdateProfile(userDtl);
+            return Ok("Updated");
+        }
+
+
 
     }
 }
