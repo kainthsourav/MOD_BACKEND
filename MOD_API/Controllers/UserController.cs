@@ -58,8 +58,19 @@ namespace MOD_API.Controllers
         [HttpPost]
         public IHttpActionResult Register(UserDtl User)
         {
-            userLogic.Register(User);
-            return Ok("User Added");
+           var result= userLogic.Register(User);
+            if (result.message == "Registered Successfully")
+            {
+                return Ok(result.message);
+            }
+            else if (result.message == "Email Already Exists")
+            {
+                return Ok(result.message);
+            }
+            else
+            {
+                return Ok("Error Saving Data");
+            }
         }
 
         //Skill Logic

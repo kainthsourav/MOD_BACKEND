@@ -9,6 +9,5 @@ namespace MOD_DATA
    public class UserInfo
     {
         public string message { get; set; }
-        public UserDtl userInfo { get; set; }
     }
 }
