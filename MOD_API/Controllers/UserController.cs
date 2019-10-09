@@ -97,8 +97,8 @@ namespace MOD_API.Controllers
        [HttpPost]
         public IHttpActionResult AddSkill(SkillDtl skillDtl)
         {
-            userLogic.AddNewSkill(skillDtl);
-            return Ok("Request Sent");
+           var result= userLogic.AddNewSkill(skillDtl);
+            return Ok(result);
         }
 
         [Route ("api/delteteskill/{id}")]

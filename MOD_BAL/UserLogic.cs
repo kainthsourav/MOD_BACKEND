@@ -17,6 +17,7 @@ namespace MOD_BAL
         {
             try
             {
+                data.Configuration.ProxyCreationEnabled = false;
                 return data.UserDtls.ToList();
             }
             catch
@@ -30,6 +31,7 @@ namespace MOD_BAL
         {
             try
             {
+                data.Configuration.ProxyCreationEnabled = false;
                 return data.UserDtls.Find(id);
             }
             catch
@@ -191,6 +193,7 @@ namespace MOD_BAL
         {
             try
             {
+                data.Configuration.ProxyCreationEnabled = false;
                 return data.SkillDtls.ToList();
             }
             catch
@@ -204,6 +207,7 @@ namespace MOD_BAL
         {
             try
             {
+                data.Configuration.ProxyCreationEnabled = false;
                 return data.SkillDtls.Where(x => x.name == id).ToList();
             }
             catch
@@ -217,6 +221,7 @@ namespace MOD_BAL
         {
             try
             {
+                data.Configuration.ProxyCreationEnabled = false;
                 return data.SkillDtls.Where(x => x.id == id).ToList();
             }
             catch
@@ -225,12 +230,27 @@ namespace MOD_BAL
             }
          
         }
-        public void AddNewSkill(SkillDtl skillDtl)
+        public UserInfo AddNewSkill(SkillDtl skillDtl)
         {
             try
             {
-                data.SkillDtls.Add(skillDtl);
-                data.SaveChanges();
+                string message = null;
+                SkillDtl duplicateCheck = data.SkillDtls.SingleOrDefault(x => x.name == skillDtl.name);
+                if(duplicateCheck==null)
+                {
+                    data.SkillDtls.Add(skillDtl);
+                    data.SaveChanges();
+                    message = "added successfully";
+                }
+                else
+                {
+                    message = "Already exists in data";
+                }
+
+                return new UserInfo()
+                {
+                    message = message
+                };
             }
             catch
             {
@@ -243,6 +263,7 @@ namespace MOD_BAL
         {
             try
             {
+                data.Configuration.ProxyCreationEnabled = false;
                 data.SkillDtls.Remove(data.SkillDtls.Find(id));
                 data.SaveChanges();
             }
@@ -319,6 +340,7 @@ namespace MOD_BAL
         {
             try
             {
+                data.Configuration.ProxyCreationEnabled = false;
                 List<TrainingDtl> dtls = data.TrainingDtls.ToList();
                 return dtls;
             }
@@ -413,6 +435,7 @@ namespace MOD_BAL
         {
             try
             {
+                data.Configuration.ProxyCreationEnabled = false;
                 IList<PaymentDtl> dtl = data.PaymentDtls.ToList();
                 return dtl;
             }
