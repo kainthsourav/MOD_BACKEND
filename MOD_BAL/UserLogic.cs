@@ -290,6 +290,24 @@ namespace MOD_BAL
            
         }
 
+         public void updateskill(SkillDtl skill)
+        {
+            try
+            {
+                SkillDtl skillDtl = data.SkillDtls.Find(skill.id);
+                skillDtl.toc = skill.toc;
+                skillDtl.prerequisites = skill.prerequisites;
+                skillDtl.fees = skill.fees;
+                data.Entry(skillDtl).State = EntityState.Modified;
+                data.Configuration.ValidateOnSaveEnabled = false;
+                data.SaveChanges();
+                data.Configuration.ValidateOnSaveEnabled = true;
+            }
+            catch
+            {
+                throw;
+            }
+        }
         public List<UserDtl> Search(string Data)
         {
             try

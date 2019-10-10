@@ -101,6 +101,13 @@ namespace MOD_API.Controllers
             return Ok(result);
         }
 
+        [Route ("api/updateskill")]
+        [HttpPost]
+        public IHttpActionResult updateskill(SkillDtl skill)
+        {
+            userLogic.updateskill(skill);
+            return Ok("Updated Sucessfully");
+        }
         [Route ("api/delteteskill/{id}")]
 
         [HttpGet]
